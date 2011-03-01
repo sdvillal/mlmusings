@@ -5,6 +5,7 @@
     Requires python >2.6
 '''
 import os
+import shlex
 import csv
 import numpy as np
 
@@ -28,23 +29,24 @@ def load_arff(src):
         #Relation name
         for line in src:
             if line.strip().lower().startswith('@relation'):
-                name = line.strip().split(' ')[1]
+                name = shlex.split(line.strip())[1]
                 break
             #Attributes
         for line in src:
             if line.strip().lower().startswith('@attribute'):
-                _, fName, spec = line.strip().split(' ')
+                _, fName, spec = shlex.split(line.strip())
                 attributes.append(fName)
                 if spec.startswith('{'):
                     for clazz in spec[1:-1].split(','):
-                        classes[clazz] = len(classes)
+                        classes[clazz.strip()] = len(classes)
             elif line.strip().lower().startswith('@data'):
                 break
             #Data
         for line in src:
             data = line.strip().split(',')
-            x.append(map(float, data[:-1]))
-            y.append(classes[data[-1]])
+            if len(data) == len(attributes):  #Lame check
+                x.append(map(float, data[:-1]))
+                y.append(classes[data[-1]])
 
         return name, attributes, classes, np.array(x), np.array(y)
 

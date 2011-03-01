@@ -59,47 +59,5 @@ def bad_neighborhoodness(neighbors, y):
     return bad_neighbor_count
 
 def good_neighborhoodness(neighbors, y):
-    return [hub - bad for hub, bad in zip(hubness(neighbors), bad_neighborhoodness(neighbors, y))] #Oh well, 2 passes, better pass an operator to badblabalbla
-
-def main():
-    import io
-    import dr
-    import kernels
-    from time import time
-    PETECAN_ROOT = os.path.join(os.path.expanduser('~'), 'Proyectos', 'data', 'wikipedia-motifs')
-    ORIGINAL_ARFF = os.path.join(PETECAN_ROOT, 'ArticleEgoMotifCounts.arff')
-    _, _, _, x, y = io.load_arff(ORIGINAL_ARFF)
-    xkpca = dr.kpca(x, sigma=3.0)
-    xkpca2 = dr.kernelpca(x,'gaussian',17)
-    print np.allclose(xkpca[0], xkpca2[0]) #Weird of the weird
-    print np.allclose(xkpca[1], xkpca2[1]) #Weird of the weird
-    print np.allclose(xkpca[2], xkpca2[2]) #Weird of the weird
-    print np.allclose(xkpca[3], xkpca2[3]) #Weird of the weird
-    print np.allclose(xkpca[4], xkpca2[4]) #Weird of the weird
-    print nn_acc(nns(xkpca), y)
-    print vizrank(xkpca[0], y)[0]
-    print vizrank(xkpca2[0], y)[0]
-#    neighbors = nns(x, 5)
-#    print hubness(neighbors)
-#    print bad_neighborhoodness(neighbors, y)
-#    print good_neighborhoodness(neighbors, y)
-#    print nn_acc(neighbors, y)
-#    x = dr.kernel_pca(x)[0]
-#    neighbors = nns(x, 5)
-#    print hubness(neighbors)
-#    print bad_neighborhoodness(neighbors, y)
-#    print good_neighborhoodness(neighbors, y)
-#    print nn_acc(neighbors, y)
-
-if __name__ == '__main__':
-    main()
-#    import cProfile
-#    cProfile.run('main()', '/home/santi/fooprof')
-#    import pstats
-#    p = pstats.Stats('/home/santi/fooprof')
-
-
-
-
-
-
+    #Oh well, 2 passes...
+    return [hub - bad for hub, bad in zip(hubness(neighbors), bad_neighborhoodness(neighbors, y))]
