@@ -71,9 +71,6 @@ def main():
     _, _, _, x, y = io.load_arff(ORIGINAL_ARFF)
     xkpca = dr.kpca(x, sigma=3.0)
     xkpca2 = dr.kernelpca(x,'gaussian',17)
-    print np.allclose(km1, km2)
-    io.save_tab(xkpca, y, '/home/santi/mykpca.csv')
-    io.save_tab(xkpca2, y, '/home/santi/theirkpca.csv')
     print np.allclose(xkpca[0], xkpca2[0]) #Weird of the weird
     print np.allclose(xkpca[1], xkpca2[1]) #Weird of the weird
     print np.allclose(xkpca[2], xkpca2[2]) #Weird of the weird
