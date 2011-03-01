@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ''' Simple I/O without dependencies to any non-standard package other than numpy.
     mldata-utils, arff, orange and the like could be useful here.

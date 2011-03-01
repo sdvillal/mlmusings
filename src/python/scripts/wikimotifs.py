@@ -10,12 +10,12 @@ from mlmusings import dr
 PETECAN_ROOT = os.path.join(os.path.expanduser('~'), 'Proyectos', 'data', 'wikipedia-motifs')
 ORIGINAL_ARFF = os.path.join(PETECAN_ROOT, 'ArticleEgoMotifCounts.arff')
 
-def kpcasum(x, y, sigmas=[0.2, 0.6, 1.0, 1.4, 1.8, 2.2]):
+def kpcasum(x, y, sigmas=[1E-9, 1E-6, 1E-3, 1, 1E3, 1E6, 1E9]):
     for sigma in sigmas:
         kpcax = dr.kpca(x, sigma=sigma)[0]
         acc = nn.nn_acc(nn.nns(kpcax, 3), y)
         vr = nn.vizrank(kpcax, y)[0]
-        print('sigma=%.1f,acc=%.4f,vr(%d,%d)=%.4f' % (sigma, acc, vr[1], vr[2], vr[0]))
+        print('sigma=%G,acc=%.4f,vr(%d,%d)=%.4f' % (sigma, acc, vr[1], vr[2], vr[0]))
 
 def main(datafile):
     _, _, _, x, y = mlmusings.io.load_arff(datafile)

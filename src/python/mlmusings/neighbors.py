@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ''' Some methods for working with neighborhoods of data points '''
 import os
